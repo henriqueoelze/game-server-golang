@@ -1,0 +1,9 @@
+### Healthcheck
+GET http://localhost:8080/v1/health
+
+### CreatePlayer
+POST http://localhost:8080/v1/player
+
+### GetPLayer
+GET http://localhost:8080/v1/player
+Authorization: i+COWWgOKDAJcFVXHa3FNitPime/V4iw85ydqRgM8hccOrBQ9VHBMjAzOrJc+Tm0qvZhNhOR6Z/WjX+4xvtTOl5fOerHgvfWmyMKppB15hZ91CT0HO7vg0e0leRvEaC20TCnPxlVTf7dtRuT/GAObCYHWZy3NqsrbZE/zykz79QQFLI77u9Ut70O8mBlOjyJQiva5cZtpM15PiqtvjfnlbTr/ucdQpYvrLzGYt+WcATNJuquWi56ku3e5yA9u0dooDNe4hMD2tt4R/en16aiAuKji5tEBwhvt3CtE/ZvjjquJHAbahCE0LwYL9wAE/TzIyr7c3d2S8wgll4xzzaRrQ==
