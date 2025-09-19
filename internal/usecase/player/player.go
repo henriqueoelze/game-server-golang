@@ -3,22 +3,22 @@ package player
 import (
 	base "game-server-golang/internal/core"
 	entities "game-server-golang/internal/domain"
-	"game-server-golang/internal/gateways"
-	"game-server-golang/internal/usecases"
+	"game-server-golang/internal/gateway"
+	"game-server-golang/internal/usecase"
 
 	"github.com/google/uuid"
 )
 
-var _ = usecases.PlayerUsecase(&PlayerUsecaseImpl{})
+var _ = usecase.PlayerUsecase(&PlayerUsecaseImpl{})
 
 type PlayerUsecaseImpl struct {
 	base.BaseLogger
-	playerRepository gateways.PlayerRepository
+	playerRepository gateway.PlayerRepository
 }
 
 func NewPlayerUsecase(
-	playerRepository gateways.PlayerRepository,
-) usecases.PlayerUsecase {
+	playerRepository gateway.PlayerRepository,
+) usecase.PlayerUsecase {
 	return &PlayerUsecaseImpl{
 		playerRepository: playerRepository,
 	}

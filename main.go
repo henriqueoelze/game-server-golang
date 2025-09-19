@@ -1,9 +1,20 @@
 package main
 
-import "game-server-golang/cmd"
+import (
+	"fmt"
+	"game-server-golang/cmd"
+	"game-server-golang/internal/config"
+)
 
 func main() {
-	err := cmd.ExecuteApi()
+	// Load configuration
+	config, err := config.LoadConfig()
+	if err != nil {
+		panic(fmt.Sprintf("Error loading config: %v", err))
+	}
+
+	// Execute API with config
+	err = cmd.ExecuteApi(config)
 	if err != nil {
 		panic(err)
 	}

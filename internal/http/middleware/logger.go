@@ -3,7 +3,7 @@ package middleware
 import (
 	"context"
 	"game-server-golang/internal/constant"
-	base "game-server-golang/internal/core"
+	"game-server-golang/internal/core"
 	"game-server-golang/internal/gateway"
 	"game-server-golang/internal/gateway/logger"
 	"net/http"
@@ -12,7 +12,7 @@ import (
 )
 
 type LoggerMiddleware struct {
-	base.BaseLogger
+	core.BaseLogger
 }
 
 func NewLoggerMiddleware() *LoggerMiddleware {
@@ -30,7 +30,7 @@ func (middleware LoggerMiddleware) SetupPlayerLog(next http.Handler) http.Handle
 
 func initLogger(ctx context.Context, playerId uuid.UUID) (context.Context, gateway.Logger) {
 	ctxLog := logger.NewZapLogger()
-	ctxLog = ctxLog.WithField(logger.PlayerIdField, playerId)
+	ctxLog = ctxLog.WithField(constant.LoggerPlayerIdField, playerId)
 
 	ctx = context.WithValue(ctx, constant.ContextKeyLogger, ctxLog)
 	return ctx, ctxLog

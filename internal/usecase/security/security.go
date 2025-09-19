@@ -7,18 +7,18 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"game-server-golang/internal/core"
-	"game-server-golang/internal/usecases"
+	"game-server-golang/internal/usecase"
 )
 
-var _ = usecases.SecurityUsecase(&SecurityUsecaseImpl{})
+var _ = usecase.SecurityUsecase(&SecurityUsecaseImpl{})
 
 type SecurityUsecaseImpl struct {
-	base.BaseLogger
+	core.BaseLogger
 	privateKey *rsa.PrivateKey
 	publicKey  *rsa.PublicKey
 }
 
-func NewSecurityUsecase() usecases.SecurityUsecase {
+func NewSecurityUsecase() usecase.SecurityUsecase {
 	privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)

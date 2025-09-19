@@ -27,7 +27,7 @@ func NewMetagameApi(
 	}
 }
 
-func (api *MetagameApi) Start() {
+func (api *MetagameApi) Start(addr string) {
 	openRouter := http.NewServeMux()
 	openRouter.HandleFunc(HealthPath, api.Health)
 	openRouter.HandleFunc(CreatePlayerPath, api.CreatePlayer)
@@ -43,7 +43,7 @@ func (api *MetagameApi) Start() {
 			playerRouter,
 		)))
 
-	err := http.ListenAndServe(":8080", openRouter)
+	err := http.ListenAndServe(addr, openRouter)
 	if err != nil {
 		panic(err)
 	}

@@ -5,6 +5,11 @@
 *.so
 *.dylib
 
+# Environment variables
+.env
+*.env
+!.env.example
+
 # Databases
 *.db
 

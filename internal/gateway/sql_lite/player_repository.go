@@ -2,8 +2,8 @@ package sql_lite
 
 import (
 	entities "game-server-golang/internal/domain"
-	"game-server-golang/internal/gateways"
-	"game-server-golang/internal/gateways/sql_lite/models"
+	"game-server-golang/internal/gateway"
+	"game-server-golang/internal/gateway/sql_lite/models"
 
 	"github.com/google/uuid"
 	"gorm.io/driver/sqlite"
@@ -14,10 +14,10 @@ type PlayerRepositoryImpl struct {
 	db *gorm.DB
 }
 
-var _ gateways.PlayerRepository = &PlayerRepositoryImpl{}
+var _ gateway.PlayerRepository = &PlayerRepositoryImpl{}
 
-func NewPlayerRepositoryImpl() (*PlayerRepositoryImpl, error) {
-	db, err := gorm.Open(sqlite.Open("in_memory_db.db"), &gorm.Config{})
+func NewPlayerRepositoryImpl(databaseName string) (*PlayerRepositoryImpl, error) {
+	db, err := gorm.Open(sqlite.Open(databaseName), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}
