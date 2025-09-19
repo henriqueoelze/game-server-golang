@@ -1,8 +1,8 @@
 package player
 
 import (
-	"game-server-golang/internal/base"
-	"game-server-golang/internal/entities"
+	base "game-server-golang/internal/core"
+	entities "game-server-golang/internal/domain"
 	"game-server-golang/internal/gateways"
 	"game-server-golang/internal/usecases"
 

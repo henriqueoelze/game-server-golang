@@ -1,7 +1,7 @@
-package gateways
+package gateway
 
 import (
-	"game-server-golang/internal/entities"
+	entities "game-server-golang/internal/domain"
 
 	"github.com/google/uuid"
 )

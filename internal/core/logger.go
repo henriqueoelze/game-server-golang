@@ -1,14 +1,14 @@
-package base
+package core
 
 import (
 	"context"
-	"game-server-golang/internal/constants"
-	"game-server-golang/internal/gateways"
+	"game-server-golang/internal/constant"
+	"game-server-golang/internal/gateway"
 )
 
 type BaseLogger struct{}
 
-func (base *BaseLogger) GetLogger(ctx context.Context) gateways.Logger {
-	ctxLog := ctx.Value(constants.ContextKeyLogger).(gateways.Logger)
+func (base *BaseLogger) GetLogger(ctx context.Context) gateway.Logger {
+	ctxLog := ctx.Value(constant.ContextKeyLogger).(gateway.Logger)
 	return ctxLog
 }

@@ -1,20 +1,20 @@
-package middlewares
+package middleware
 
 import (
 	"context"
-	"game-server-golang/internal/constants"
-	"game-server-golang/internal/usecases"
+	"game-server-golang/internal/constant"
+	"game-server-golang/internal/usecase"
 	"net/http"
 
 	"github.com/google/uuid"
 )
 
 type AuthenticationMiddleware struct {
-	securityUsecase usecases.SecurityUsecase
+	securityUsecase usecase.SecurityUsecase
 }
 
 func NewAuthenticationMiddleware(
-	securityUsecase usecases.SecurityUsecase,
+	securityUsecase usecase.SecurityUsecase,
 ) *AuthenticationMiddleware {
 	return &AuthenticationMiddleware{
 		securityUsecase: securityUsecase,
@@ -36,7 +36,7 @@ func (api AuthenticationMiddleware) CheckAuthentication(next http.Handler) http.
 			return
 		}
 
-		playerContext := context.WithValue(r.Context(), constants.ContextKeyPlayerID, playerId)
+		playerContext := context.WithValue(r.Context(), constant.ContextKeyPlayerID, playerId)
 		next.ServeHTTP(w, r.WithContext(playerContext))
 	})
 }

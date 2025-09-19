@@ -6,7 +6,7 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"encoding/base64"
-	"game-server-golang/internal/base"
+	"game-server-golang/internal/core"
 	"game-server-golang/internal/usecases"
 )
 

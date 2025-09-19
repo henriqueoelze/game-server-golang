@@ -1,9 +1,9 @@
 package sql_lite
 
 import (
-	"game-server-golang/internal/entities"
+	entities "game-server-golang/internal/domain"
 	"game-server-golang/internal/gateways"
-	"game-server-golang/internal/models"
+	"game-server-golang/internal/gateways/sql_lite/models"
 
 	"github.com/google/uuid"
 	"gorm.io/driver/sqlite"

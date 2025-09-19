@@ -1,4 +1,4 @@
-package usecases
+package usecase
 
 type SecurityUsecase interface {
 	Encrypt(message string) (encryptedString string, err error)

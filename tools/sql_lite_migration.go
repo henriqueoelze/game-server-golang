@@ -1,7 +1,7 @@
 package main
 
 import (
-	"game-server-golang/internal/models"
+	"game-server-golang/internal/gateways/sql_lite/models"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

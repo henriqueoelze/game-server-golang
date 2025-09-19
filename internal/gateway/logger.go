@@ -1,4 +1,4 @@
-package gateways
+package gateway
 
 type Logger interface {
 	Info(msg string)

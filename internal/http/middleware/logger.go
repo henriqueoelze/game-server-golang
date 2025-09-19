@@ -1,11 +1,11 @@
-package middlewares
+package middleware
 
 import (
 	"context"
-	"game-server-golang/internal/base"
-	"game-server-golang/internal/constants"
-	"game-server-golang/internal/gateways"
-	"game-server-golang/internal/gateways/logger"
+	"game-server-golang/internal/constant"
+	base "game-server-golang/internal/core"
+	"game-server-golang/internal/gateway"
+	"game-server-golang/internal/gateway/logger"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -21,17 +21,17 @@ func NewLoggerMiddleware() *LoggerMiddleware {
 
 func (middleware LoggerMiddleware) SetupPlayerLog(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		playerId := r.Context().Value(constants.ContextKeyPlayerID).(uuid.UUID)
+		playerId := r.Context().Value(constant.ContextKeyPlayerID).(uuid.UUID)
 
 		playerContext, _ := initLogger(r.Context(), playerId)
 		next.ServeHTTP(w, r.WithContext(playerContext))
 	})
 }
 
-func initLogger(ctx context.Context, playerId uuid.UUID) (context.Context, gateways.Logger) {
+func initLogger(ctx context.Context, playerId uuid.UUID) (context.Context, gateway.Logger) {
 	ctxLog := logger.NewZapLogger()
 	ctxLog = ctxLog.WithField(logger.PlayerIdField, playerId)
 
-	ctx = context.WithValue(ctx, constants.ContextKeyLogger, ctxLog)
+	ctx = context.WithValue(ctx, constant.ContextKeyLogger, ctxLog)
 	return ctx, ctxLog
 }

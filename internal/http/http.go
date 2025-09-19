@@ -2,25 +2,24 @@ package http
 
 import (
 	"context"
-	"game-server-golang/internal/constants"
-	base "game-server-golang/internal/core"
-	"game-server-golang/internal/http/middlewares"
-	"game-server-golang/internal/usecases"
+	"game-server-golang/internal/constant"
+	"game-server-golang/internal/core"
+	"game-server-golang/internal/http/middleware"
+	"game-server-golang/internal/usecase"
 	"net/http"
 
 	"github.com/google/uuid"
 )
 
 type MetagameApi struct {
-	base.BaseLogger
-	base.BaseSession
-	securityUsecase usecases.SecurityUsecase
-	playerUsecase   usecases.PlayerUsecase
+	core.BaseLogger
+	securityUsecase usecase.SecurityUsecase
+	playerUsecase   usecase.PlayerUsecase
 }
 
 func NewMetagameApi(
-	securityUsecase usecases.SecurityUsecase,
-	playerUsecase usecases.PlayerUsecase,
+	securityUsecase usecase.SecurityUsecase,
+	playerUsecase usecase.PlayerUsecase,
 ) *MetagameApi {
 	return &MetagameApi{
 		securityUsecase: securityUsecase,
@@ -36,8 +35,8 @@ func (api *MetagameApi) Start() {
 	playerRouter := http.NewServeMux()
 	playerRouter.HandleFunc(GetPlayerPath, api.GetPlayer)
 
-	authenticationMiddleware := middlewares.NewAuthenticationMiddleware(api.securityUsecase)
-	loggerMiddleware := middlewares.NewLoggerMiddleware()
+	authenticationMiddleware := middleware.NewAuthenticationMiddleware(api.securityUsecase)
+	loggerMiddleware := middleware.NewLoggerMiddleware()
 
 	openRouter.Handle("/", authenticationMiddleware.CheckAuthentication(
 		loggerMiddleware.SetupPlayerLog(
@@ -51,6 +50,6 @@ func (api *MetagameApi) Start() {
 }
 
 func (api *MetagameApi) GetPlayerIdFromCtx(ctx context.Context) uuid.UUID {
-	playerId := ctx.Value(constants.ContextKeyPlayerID).(uuid.UUID)
+	playerId := ctx.Value(constant.ContextKeyPlayerID).(uuid.UUID)
 	return playerId
 }
