@@ -1,10 +1,14 @@
 package http
 
 import (
-	"game-server-golang/internal/base"
+	"context"
+	"game-server-golang/internal/constants"
+	base "game-server-golang/internal/core"
 	"game-server-golang/internal/http/middlewares"
 	"game-server-golang/internal/usecases"
 	"net/http"
+
+	"github.com/google/uuid"
 )
 
 type MetagameApi struct {
@@ -44,4 +48,9 @@ func (api *MetagameApi) Start() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (api *MetagameApi) GetPlayerIdFromCtx(ctx context.Context) uuid.UUID {
+	playerId := ctx.Value(constants.ContextKeyPlayerID).(uuid.UUID)
+	return playerId
 }
