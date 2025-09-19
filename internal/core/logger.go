@@ -1,14 +1,23 @@
 package core
 
 import (
-	"context"
-	"game-server-golang/internal/constant"
+	"game-server-golang/internal/config"
 	"game-server-golang/internal/gateway"
+	"game-server-golang/internal/gateway/logger"
+	"sync"
 )
 
-type BaseLogger struct{}
+var (
+	baseLogger gateway.Logger
+	once       sync.Once
+)
 
-func (base *BaseLogger) GetLogger(ctx context.Context) gateway.Logger {
-	ctxLog := ctx.Value(constant.ContextKeyLogger).(gateway.Logger)
-	return ctxLog
+// InitLogger initializes the base logger with configuration
+// This should be called once during application startup
+func InitLogger(config config.LoggingConfig) gateway.Logger {
+	once.Do(func() {
+		baseLogger = logger.NewZapLogger(config)
+	})
+
+	return baseLogger
 }

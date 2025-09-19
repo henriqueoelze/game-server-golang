@@ -32,16 +32,27 @@ type SecurityConfig struct {
 	AllowedOrigins []string
 }
 
+// LogLevel represents the logging level
+type LogLevel string
+
+const (
+	LogLevelDebug LogLevel = "debug"
+	LogLevelInfo  LogLevel = "info"
+	LogLevelWarn  LogLevel = "warn"
+	LogLevelError LogLevel = "error"
+)
+
 type LoggingConfig struct {
-	Level  string
-	Format string
+	Level         LogLevel `mapstructure:"level"`
+	Format        string   `mapstructure:"format"`
+	DisableCaller bool     `mapstructure:"add_caller"` // Adds the caller (file:line) to log entries
 }
 
 func LoadConfig() (*Config, error) {
-	viper.SetConfigName("config")   // name of config file (without extension)
-	viper.SetConfigType("yaml")     // YAML format
-	viper.AddConfigPath(".")        // looking for config in the working directory
-	viper.AddConfigPath("./config") // looking for config in ./config directory
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
+	viper.AddConfigPath("./config")
 
 	viper.AutomaticEnv()             // read in environment variables that match
 	viper.SetEnvPrefix("GAMESERVER") // prefix for environment variables
@@ -83,6 +94,7 @@ func setDefaults() {
 	viper.SetDefault("security.allowedorigins", []string{"http://localhost:3000"})
 
 	// Logging defaults
-	viper.SetDefault("logging.level", "info")
-	viper.SetDefault("logging.format", "json")
+	viper.SetDefault("logging.level", string(LogLevelInfo))
+	viper.SetDefault("logging.format", "json")    // or "console" for development
+	viper.SetDefault("logging.add_caller", false) // adds file:line to logs
 }

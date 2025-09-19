@@ -1,7 +1,6 @@
 package player
 
 import (
-	base "game-server-golang/internal/core"
 	entities "game-server-golang/internal/domain"
 	"game-server-golang/internal/gateway"
 	"game-server-golang/internal/usecase"
@@ -12,7 +11,6 @@ import (
 var _ = usecase.PlayerUsecase(&PlayerUsecaseImpl{})
 
 type PlayerUsecaseImpl struct {
-	base.BaseLogger
 	playerRepository gateway.PlayerRepository
 }
 

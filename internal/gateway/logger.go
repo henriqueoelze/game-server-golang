@@ -1,6 +1,10 @@
 package gateway
 
 type Logger interface {
+	Debug(msg string)
 	Info(msg string)
-	WithField(key string, value interface{}) Logger
+	Warn(msg string)
+	Error(msg string)
+	WithField(key string, value any) Logger
+	WithFields(fields map[string]any) Logger
 }

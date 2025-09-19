@@ -20,5 +20,6 @@ security:
 
 # Logging Configuration
 logging:
-  level: "info"  # debug, info, warn, error
-  format: "json" # json, console
+  level: "info"      # Available: debug, info, warn, error
+  format: "json"     # Available: json, console
+  disable_caller: false  # Adds file:line to log entries

@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"game-server-golang/internal/constant"
+	"game-server-golang/internal/gateway"
 	"game-server-golang/internal/usecase"
 	"net/http"
 
@@ -11,17 +12,21 @@ import (
 
 type AuthenticationMiddleware struct {
 	securityUsecase usecase.SecurityUsecase
+
+	baseLogger gateway.Logger
 }
 
 func NewAuthenticationMiddleware(
 	securityUsecase usecase.SecurityUsecase,
+	baseLogger gateway.Logger,
 ) *AuthenticationMiddleware {
 	return &AuthenticationMiddleware{
 		securityUsecase: securityUsecase,
+		baseLogger:      baseLogger,
 	}
 }
 
-func (api AuthenticationMiddleware) CheckAuthentication(next http.Handler) http.Handler {
+func (api AuthenticationMiddleware) Authenticate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")
 		header, err := api.securityUsecase.Decrypt(authHeader)
@@ -36,7 +41,11 @@ func (api AuthenticationMiddleware) CheckAuthentication(next http.Handler) http.
 			return
 		}
 
-		playerContext := context.WithValue(r.Context(), constant.ContextKeyPlayerID, playerId)
-		next.ServeHTTP(w, r.WithContext(playerContext))
+		reqLogger := api.baseLogger.WithField(constant.LoggerPlayerIdField, playerId)
+		ctxWithLog := context.WithValue(r.Context(), constant.ContextKeyLogger, reqLogger)
+
+		ctxWithLogAndPlayerId := context.WithValue(ctxWithLog, constant.ContextKeyPlayerID, playerId)
+
+		next.ServeHTTP(w, r.WithContext(ctxWithLogAndPlayerId))
 	})
 }

@@ -8,7 +8,7 @@ import (
 var GetPlayerPath = "GET /v1/player"
 
 func (handler MetagameApi) GetPlayer(w http.ResponseWriter, r *http.Request) {
-	logger := handler.GetLogger(r.Context())
+	logger := handler.GetLoggerFromContext(r.Context())
 	playerId := handler.GetPlayerIdFromCtx(r.Context())
 
 	player, err := handler.playerUsecase.GetPlayer(playerId)

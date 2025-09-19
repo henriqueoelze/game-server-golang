@@ -6,14 +6,12 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"encoding/base64"
-	"game-server-golang/internal/core"
 	"game-server-golang/internal/usecase"
 )
 
 var _ = usecase.SecurityUsecase(&SecurityUsecaseImpl{})
 
 type SecurityUsecaseImpl struct {
-	core.BaseLogger
 	privateKey *rsa.PrivateKey
 	publicKey  *rsa.PublicKey
 }
