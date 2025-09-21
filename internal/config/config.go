@@ -10,7 +10,6 @@ import (
 type Config struct {
 	Server   ServerConfig
 	Database DatabaseConfig
-	Security SecurityConfig
 	Logging  LoggingConfig
 }
 
@@ -25,11 +24,6 @@ type DatabaseConfig struct {
 	Port     int
 	Username string
 	Password string
-}
-
-type SecurityConfig struct {
-	JWTSecret      string
-	AllowedOrigins []string
 }
 
 // LogLevel represents the logging level
@@ -88,10 +82,6 @@ func setDefaults() {
 	viper.SetDefault("database.name", "in_memory_db.db")
 	viper.SetDefault("database.host", "localhost")
 	viper.SetDefault("database.port", 5432)
-
-	// Security defaults
-	viper.SetDefault("security.jwtsecret", "your-default-secret-key-change-in-production")
-	viper.SetDefault("security.allowedorigins", []string{"http://localhost:3000"})
 
 	// Logging defaults
 	viper.SetDefault("logging.level", string(LogLevelInfo))

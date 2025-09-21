@@ -6,4 +6,4 @@ POST http://localhost:8080/v1/player
 
 ### GetPLayer
 GET http://localhost:8080/v1/player
-Authorization: "{{token}}"
+Authorization: [[TOKEN WITHOUT QUOTES]]

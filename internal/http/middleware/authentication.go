@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"fmt"
 	"game-server-golang/internal/constant"
 	"game-server-golang/internal/gateway"
 	"game-server-golang/internal/usecase"
@@ -31,12 +32,14 @@ func (api AuthenticationMiddleware) Authenticate(next http.Handler) http.Handler
 		authHeader := r.Header.Get("Authorization")
 		header, err := api.securityUsecase.Decrypt(authHeader)
 		if err != nil {
+			api.baseLogger.Error(fmt.Sprintf("error decrypting auth header: %v", err))
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
 
 		playerId, err := uuid.Parse(header)
 		if err != nil {
+			api.baseLogger.Error(fmt.Sprintf("error decrypting auth header: %v", err))
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
