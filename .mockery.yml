@@ -1,0 +1,25 @@
+with-expecter: true
+packages:
+  github.com/henriqueoelze/game-server-golang/internal/gateway:
+    interfaces:
+      Logger:
+        config:
+          dir: "mocks/gateway"
+      PlayerRepository:
+        config:
+          dir: "mocks/gateway"
+  github.com/henriqueoelze/game-server-golang/internal/usecase:
+    interfaces:
+      SecurityUsecase:
+        config:
+          dir: "mocks/usecase"
+      PlayerUsecase:
+        config:
+          dir: "mocks/usecase"
+inpackage: true
+dir: "mocks/{{.PackageName}}"
+filename: "mock_{{.InterfaceName}}.go"
+mockname: "Mock{{.InterfaceName}}"
+outpkg: "{{.PackageName}}"
+quiet: false
+recursive: true
