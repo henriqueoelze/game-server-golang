@@ -1,25 +1,19 @@
-with-expecter: true
+all: false
+recursive: false
+dir: '{{.InterfaceDir}}'
+filename: mocks_test.go
+force-file-write: false
+formatter: goimports
+log-level: info
+structname: '{{.Mock}}{{.InterfaceName}}'
+pkgname: '{{.SrcPackageName}}'
+template: testify
 packages:
-  github.com/henriqueoelze/game-server-golang/internal/gateway:
-    interfaces:
-      Logger:
-        config:
-          dir: "mocks/gateway"
-      PlayerRepository:
-        config:
-          dir: "mocks/gateway"
-  github.com/henriqueoelze/game-server-golang/internal/usecase:
-    interfaces:
-      SecurityUsecase:
-        config:
-          dir: "mocks/usecase"
-      PlayerUsecase:
-        config:
-          dir: "mocks/usecase"
-inpackage: true
-dir: "mocks/{{.PackageName}}"
-filename: "mock_{{.InterfaceName}}.go"
-mockname: "Mock{{.InterfaceName}}"
-outpkg: "{{.PackageName}}"
-quiet: false
-recursive: true
+  game-server-golang/internal/gateway:
+    config:
+      recursive: true
+      all: true
+  game-server-golang/internal/usecase:
+    config:
+      recursive: true
+      all: true

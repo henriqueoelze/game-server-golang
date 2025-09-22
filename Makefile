@@ -32,7 +32,7 @@ lint: setup ## Run linters
 
 generate-mocks: setup ## Generate mocks for interfaces
 	@echo "Generating mocks..."
-	@$(MOCKERY) --config .mockery.yml --all
+	@$(MOCKERY) --config .mockery.yml
 
 #################################################
 # DEPENDENCIES AREA
