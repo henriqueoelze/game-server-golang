@@ -15,6 +15,7 @@ func main() {
 		panic(fmt.Sprintf("Error loading config: %v", err))
 	}
 
+	fmt.Printf("Using database: %s", config.Database.Name)
 	db, err := gorm.Open(sqlite.Open(config.Database.Name), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
