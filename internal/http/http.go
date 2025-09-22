@@ -57,6 +57,7 @@ func (api MetagameApi) Start(serverConfig config.ServerConfig) {
 		Addr:              serverAddress,
 		ReadHeaderTimeout: timeoutDuration,
 		WriteTimeout:      timeoutDuration,
+		Handler:           openRouter,
 	}
 
 	err := server.ListenAndServe()
