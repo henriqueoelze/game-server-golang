@@ -1,13 +1,12 @@
 all: false
 recursive: false
-dir: '{{.InterfaceDir}}'
-filename: mocks_test.go
-force-file-write: false
+force-file-write: true
 formatter: goimports
-log-level: info
-structname: '{{.Mock}}{{.InterfaceName}}'
-pkgname: '{{.SrcPackageName}}'
 template: testify
+dir: "{{.InterfaceDir}}"
+filename: "mocks_test.go"
+pkgname: "{{.SrcPackageName}}_test"
+structname: "Mock{{.InterfaceName}}"
 packages:
   game-server-golang/internal/gateway:
     config:

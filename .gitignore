@@ -56,3 +56,6 @@ Godeps/
 
 # Tools
 bin/
+
+# Mockery generated files
+**/mocks_test.go
