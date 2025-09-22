@@ -5,21 +5,14 @@ server:
 
 # Database Configuration
 database:
-  driver: "sqlite"
   name: "local.db"
   host: "localhost"
   port: 5432
   username: ""  # Not needed for SQLite
   password: ""  # Not needed for SQLite
 
-# Security Configuration
-security:
-  jwtsecret: "your-default-secret-key-change-in-production"
-  allowedorigins:
-    - "http://localhost:3000"
-
 # Logging Configuration
 logging:
   level: "info"      # Available: debug, info, warn, error
   format: "json"     # Available: json, console
-  disable_caller: false  # Adds file:line to log entries
+  disablecaller: false  # Adds file:line to log entries

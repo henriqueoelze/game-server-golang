@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"game-server-golang/internal/config"
-	"game-server-golang/internal/core"
+	"game-server-golang/internal/gateway/logger"
 	"game-server-golang/internal/gateway/sql_lite"
 	"game-server-golang/internal/http"
 	"game-server-golang/internal/usecase/player"
@@ -12,7 +12,7 @@ import (
 
 func ExecuteApi(config *config.Config) error {
 	// Initialize the base logger
-	baseLogger := core.InitLogger(config.Logging)
+	baseLogger := logger.NewZapLogger(config.Logging)
 	baseLogger.Info("initializing application")
 
 	// Initialize database with config

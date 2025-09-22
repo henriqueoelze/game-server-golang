@@ -26,7 +26,6 @@ type DatabaseConfig struct {
 	Password string
 }
 
-// LogLevel represents the logging level
 type LogLevel string
 
 const (
@@ -39,7 +38,7 @@ const (
 type LoggingConfig struct {
 	Level         LogLevel `mapstructure:"level"`
 	Format        string   `mapstructure:"format"`
-	DisableCaller bool     `mapstructure:"add_caller"` // Adds the caller (file:line) to log entries
+	DisableCaller bool     `mapstructure:"disablecaller"` // Adds the caller (file:line) to log entries
 }
 
 func LoadConfig() (*Config, error) {
@@ -60,7 +59,7 @@ func LoadConfig() (*Config, error) {
 		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
 			return nil, fmt.Errorf("error reading config file: %s", err)
 		}
-		// Config file not found; ignore error if desired
+
 		fmt.Println("No config file found - using defaults and environment variables")
 	}
 
@@ -74,17 +73,14 @@ func LoadConfig() (*Config, error) {
 }
 
 func setDefaults() {
-	// Server defaults
 	viper.SetDefault("server.port", 8080)
 	viper.SetDefault("server.host", "0.0.0.0")
 
-	// Database defaults
 	viper.SetDefault("database.name", "in_memory_db.db")
 	viper.SetDefault("database.host", "localhost")
 	viper.SetDefault("database.port", 5432)
 
-	// Logging defaults
 	viper.SetDefault("logging.level", string(LogLevelInfo))
-	viper.SetDefault("logging.format", "json")    // or "console" for development
-	viper.SetDefault("logging.add_caller", false) // adds file:line to logs
+	viper.SetDefault("logging.format", "json")       // or "console" for development
+	viper.SetDefault("logging.disablecaller", false) // adds file:line to logs
 }

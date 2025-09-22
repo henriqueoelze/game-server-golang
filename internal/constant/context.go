@@ -3,7 +3,6 @@ package constant
 type contextKey string
 
 const (
-	// ContextKeyPlayerID is the key used to store the player ID in the context
-	ContextKeyPlayerID contextKey = "context.playerId"
+	ContextKeyPlayerID contextKey = "context.player_id"
 	ContextKeyLogger   contextKey = "context.logger"
 )
