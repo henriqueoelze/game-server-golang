@@ -30,9 +30,7 @@ func ExecuteApi(config *config.Config) error {
 		baseLogger,
 	)
 
-	serverAddr := fmt.Sprintf("%s:%d", config.Server.Host, config.Server.Port)
-	baseLogger.Info(fmt.Sprintf("starting server %s", serverAddr))
-	metagameApi.Start(serverAddr)
+	metagameApi.Start(config.Server)
 
 	return nil
 }

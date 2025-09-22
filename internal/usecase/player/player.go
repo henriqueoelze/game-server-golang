@@ -13,7 +13,7 @@ type PlayerUsecaseImpl struct {
 
 func NewPlayerUsecase(
 	playerRepository gateway.PlayerRepository,
-) usecase.PlayerUsecase {
+) *PlayerUsecaseImpl {
 	return &PlayerUsecaseImpl{
 		playerRepository: playerRepository,
 	}

@@ -2,6 +2,7 @@
 server:
   port: 8080
   host: "0.0.0.0"
+  timeoutinseconds: 5
 
 # Database Configuration
 database:
