@@ -12,8 +12,8 @@ type ZapLogger struct {
 	zap *zap.Logger
 }
 
-// NewZapLogger creates a new Zap logger with the given configuration
-func NewZapLogger(cfg config.LoggingConfig) gateway.Logger {
+// NewZapLogger creates a new Zap logger with the given configuration.
+func NewZapLogger(cfg config.LoggingConfig) *ZapLogger {
 	// Configure log level
 	var level zapcore.Level
 	switch cfg.Level {
@@ -29,7 +29,7 @@ func NewZapLogger(cfg config.LoggingConfig) gateway.Logger {
 		level = zap.InfoLevel
 	}
 
-	// Create logger configuration
+	// Create logger configuration.
 	zapCfg := zap.Config{
 		Level:            zap.NewAtomicLevelAt(level),
 		Development:      false,
@@ -44,12 +44,12 @@ func NewZapLogger(cfg config.LoggingConfig) gateway.Logger {
 		zapCfg.DisableCaller = true
 	}
 
-	// Customize time format
+	// Customize time format.
 	zapCfg.EncoderConfig.TimeKey = "timestamp"
 	zapCfg.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 
 	logger, _ := zapCfg.Build(
-		zap.AddCallerSkip(1), // Skip the wrapper calls
+		zap.AddCallerSkip(1), // Skip the wrapper calls.
 	)
 
 	return &ZapLogger{
@@ -84,6 +84,7 @@ func (l *ZapLogger) WithFields(fields map[string]any) gateway.Logger {
 	for k, v := range fields {
 		zapFields = append(zapFields, zap.Any(k, v))
 	}
+
 	return &ZapLogger{
 		zap: l.zap.With(zapFields...),
 	}

@@ -2,23 +2,26 @@ package http
 
 import (
 	"context"
+	"fmt"
+	"game-server-golang/internal/config"
 	"game-server-golang/internal/constant"
 	"game-server-golang/internal/core"
 	"game-server-golang/internal/gateway"
 	"game-server-golang/internal/http/middleware"
 	"game-server-golang/internal/usecase"
 	"net/http"
+	"time"
 
 	"github.com/google/uuid"
 )
 
 type MetagameApi struct {
+	core.ContextActions
+
 	securityUsecase usecase.SecurityUsecase
 	playerUsecase   usecase.PlayerUsecase
 
 	baseLogger gateway.Logger
-
-	core.ContextActions
 }
 
 func NewMetagameApi(
@@ -34,7 +37,10 @@ func NewMetagameApi(
 	}
 }
 
-func (api *MetagameApi) Start(serverAddress string) {
+func (api MetagameApi) Start(serverConfig config.ServerConfig) {
+	serverAddress := fmt.Sprintf("%s:%d", serverConfig.Host, serverConfig.Port)
+	api.baseLogger.Info(fmt.Sprintf("starting server %s", serverAddress))
+
 	openRouter := http.NewServeMux()
 	openRouter.HandleFunc(HealthPath, api.Health)
 	openRouter.HandleFunc(CreatePlayerPath, api.CreatePlayer)
@@ -46,13 +52,20 @@ func (api *MetagameApi) Start(serverAddress string) {
 
 	openRouter.Handle("/", authenticationMiddleware.Authenticate(playerRouter))
 
-	err := http.ListenAndServe(serverAddress, openRouter)
+	timeoutDuration := time.Duration(serverConfig.TimeOutInSeconds) * time.Second
+	server := http.Server{
+		Addr:              serverAddress,
+		ReadHeaderTimeout: timeoutDuration,
+		WriteTimeout:      timeoutDuration,
+	}
+
+	err := server.ListenAndServe()
 	if err != nil {
 		panic(err)
 	}
 }
 
-func (api *MetagameApi) GetPlayerIdFromCtx(ctx context.Context) uuid.UUID {
-	playerId := ctx.Value(constant.ContextKeyPlayerID).(uuid.UUID)
-	return playerId
+func (api MetagameApi) GetPlayerIdFromCtx(ctx context.Context) uuid.UUID {
+	playerID := ctx.Value(constant.ContextKeyPlayerID).(uuid.UUID)
+	return playerID
 }

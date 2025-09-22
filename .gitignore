@@ -53,3 +53,6 @@ Godeps/
 # VS Code settings
 .vscode/
 .history/
+
+# Tools
+bin/

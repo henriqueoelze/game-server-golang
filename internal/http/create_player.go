@@ -6,15 +6,15 @@ import (
 
 const CreatePlayerPath = "POST /v1/player"
 
-func (handler MetagameApi) CreatePlayer(w http.ResponseWriter, r *http.Request) {
+func (handler MetagameApi) CreatePlayer(w http.ResponseWriter, _ *http.Request) {
 	newPlayer, err := handler.playerUsecase.CreatePlayer()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	playerId := newPlayer.PublicId
-	encryptedPlayerId, err := handler.securityUsecase.Encrypt(playerId.String())
+	playerID := newPlayer.PublicID
+	encryptedPlayerId, err := handler.securityUsecase.Encrypt(playerID.String())
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

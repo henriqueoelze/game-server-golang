@@ -1,0 +1,31 @@
+# See the dedicated "version" documentation section.
+version: "2"
+linters:
+  default: all
+  settings:
+    exhaustruct:
+      allow-empty: true # Allow empty structs
+    nlreturn:
+      block-size: 3 # Min number of lines in a block to trigger the linter to enforce empty line before return.
+    varnamelen:
+        ignore-names:
+          - err # Commonly used for error variables
+          - w # Commonly used for http.ResponseWriter
+          - r # Commonly used for *http.Request
+          - db # Commonly used for database handle
+    ireturn:
+      allow:
+        - error
+        - (gateway.Logger)$
+        - http.handler
+        - net/http.Handler
+  disable:
+    - wsl # Deprecated
+    - wsl_v5 
+    - depguard # Need to configure it, could be useful
+    - revive # Too noisy for now
+    - forbidigo # Not useful for now
+    - perfsprint # Overkill for now
+    - exhaustruct # Could be useful, but complains about structs with inherited fields
+    - err113 # Could be useful, but needs to think about errors in the project
+    - forcetypeassert # Din't find it useful for now

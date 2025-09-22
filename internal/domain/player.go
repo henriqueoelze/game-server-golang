@@ -3,7 +3,7 @@ package domain
 import "github.com/google/uuid"
 
 type Player struct {
-	PublicId uuid.UUID
-	Name     string
-	Level    int
+	PublicID uuid.UUID `json:"publicId"`
+	Name     string    `json:"name"`
+	Level    int       `json:"level"`
 }

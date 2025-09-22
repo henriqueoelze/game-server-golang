@@ -1,6 +1,7 @@
 package sql_lite
 
 import (
+	"fmt"
 	entities "game-server-golang/internal/domain"
 	"game-server-golang/internal/gateway"
 	"game-server-golang/internal/gateway/sql_lite/models"
@@ -19,7 +20,7 @@ var _ gateway.PlayerRepository = &PlayerRepositoryImpl{}
 func NewPlayerRepositoryImpl(databaseName string) (*PlayerRepositoryImpl, error) {
 	db, err := gorm.Open(sqlite.Open(databaseName), &gorm.Config{})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to connect database: %w", err)
 	}
 
 	return &PlayerRepositoryImpl{
@@ -29,14 +30,14 @@ func NewPlayerRepositoryImpl(databaseName string) (*PlayerRepositoryImpl, error)
 
 func (dal *PlayerRepositoryImpl) CreatePlayer(player entities.Player) error {
 	playerModel := models.Player{
-		PublicId: player.PublicId,
+		PublicId: player.PublicID,
 		Name:     player.Name,
 		Level:    player.Level,
 	}
 
 	result := dal.db.Create(&playerModel)
 	if result.Error != nil {
-		return result.Error
+		return fmt.Errorf("error creating player: %w", result.Error)
 	}
 
 	return nil

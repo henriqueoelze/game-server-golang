@@ -14,11 +14,14 @@ type SecurityUsecaseImpl struct {
 	publicKey  *rsa.PublicKey
 }
 
-func NewSecurityUsecase() usecase.SecurityUsecase {
-	privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
+func NewSecurityUsecase() *SecurityUsecaseImpl {
+	numberOfBits := 2048
+	privateKey, err := rsa.GenerateKey(rand.Reader, numberOfBits)
+
 	if err != nil {
 		panic(err)
 	}
+
 	return &SecurityUsecaseImpl{
 		privateKey: privateKey,
 		publicKey:  &privateKey.PublicKey,

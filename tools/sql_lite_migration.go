@@ -20,5 +20,8 @@ func main() {
 		panic("failed to connect database")
 	}
 
-	db.AutoMigrate(models.Player{})
+	err = db.AutoMigrate(models.Player{})
+	if err != nil {
+		panic(fmt.Sprintf("Error migrating database: %v", err))
+	}
 }

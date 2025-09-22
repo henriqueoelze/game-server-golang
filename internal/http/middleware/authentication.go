@@ -37,17 +37,17 @@ func (api AuthenticationMiddleware) Authenticate(next http.Handler) http.Handler
 			return
 		}
 
-		playerId, err := uuid.Parse(header)
+		playerID, err := uuid.Parse(header)
 		if err != nil {
 			api.baseLogger.Error(fmt.Sprintf("error decrypting auth header: %v", err))
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
 
-		reqLogger := api.baseLogger.WithField(constant.LoggerPlayerIdField, playerId)
+		reqLogger := api.baseLogger.WithField(constant.LoggerPlayerIdField, playerID)
 		ctxWithLog := context.WithValue(r.Context(), constant.ContextKeyLogger, reqLogger)
 
-		ctxWithLogAndPlayerId := context.WithValue(ctxWithLog, constant.ContextKeyPlayerID, playerId)
+		ctxWithLogAndPlayerId := context.WithValue(ctxWithLog, constant.ContextKeyPlayerID, playerID)
 
 		next.ServeHTTP(w, r.WithContext(ctxWithLogAndPlayerId))
 	})
