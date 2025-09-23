@@ -46,6 +46,7 @@ Godeps/
 # Go coverage tool files
 *.coverprofile
 *.cover.out
+coverage
 
 # Go build cache
 *.cache
