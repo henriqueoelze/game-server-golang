@@ -1,7 +1,7 @@
 package models
 
 import (
-	entities "game-server-golang/internal/domain"
+	"game-server-golang/internal/domain"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -15,8 +15,8 @@ type Player struct {
 	Level    int
 }
 
-func (p Player) ToEntity() *entities.Player {
-	return &entities.Player{
+func (p Player) ToDomain() *domain.Player {
+	return &domain.Player{
 		PublicID: p.PublicId,
 		Name:     p.Name,
 		Level:    p.Level,

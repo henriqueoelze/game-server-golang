@@ -2,7 +2,7 @@ package sql_lite
 
 import (
 	"fmt"
-	entities "game-server-golang/internal/domain"
+	"game-server-golang/internal/domain"
 	"game-server-golang/internal/gateway"
 	"game-server-golang/internal/gateway/sql_lite/models"
 
@@ -28,7 +28,7 @@ func NewPlayerRepositoryImpl(databaseName string) (*PlayerRepositoryImpl, error)
 	}, nil
 }
 
-func (dal *PlayerRepositoryImpl) CreatePlayer(player entities.Player) error {
+func (dal *PlayerRepositoryImpl) CreatePlayer(player domain.Player) error {
 	playerModel := models.Player{
 		PublicId: player.PublicID,
 		Name:     player.Name,
@@ -43,12 +43,12 @@ func (dal *PlayerRepositoryImpl) CreatePlayer(player entities.Player) error {
 	return nil
 }
 
-func (dal *PlayerRepositoryImpl) GetPlayer(publicId uuid.UUID) (*entities.Player, error) {
+func (dal *PlayerRepositoryImpl) GetPlayer(publicId uuid.UUID) (*domain.Player, error) {
 	var playerModel models.Player
 	result := dal.db.First(&playerModel, "public_id = ?", publicId)
 	if result.Error != nil {
 		return nil, result.Error
 	}
 
-	return playerModel.ToEntity(), nil
+	return playerModel.ToDomain(), nil
 }

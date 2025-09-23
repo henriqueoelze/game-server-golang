@@ -2,13 +2,13 @@ package player
 
 import (
 	"fmt"
-	entities "game-server-golang/internal/domain"
+	"game-server-golang/internal/domain"
 
 	"github.com/google/uuid"
 )
 
-func (usecase *PlayerUsecaseImpl) CreatePlayer() (entities.Player, error) {
-	newPlayer := entities.Player{
+func (usecase *PlayerUsecaseImpl) CreatePlayer() (domain.Player, error) {
+	newPlayer := domain.Player{
 		PublicID: uuid.New(),
 		Name:     "New Player",
 		Level:    1,
@@ -16,7 +16,7 @@ func (usecase *PlayerUsecaseImpl) CreatePlayer() (entities.Player, error) {
 
 	err := usecase.playerRepository.CreatePlayer(newPlayer)
 	if err != nil {
-		return entities.Player{}, fmt.Errorf("error creating player: %w", err)
+		return domain.Player{}, fmt.Errorf("error creating player: %w", err)
 	}
 
 	return newPlayer, nil
