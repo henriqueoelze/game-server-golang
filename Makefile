@@ -41,7 +41,8 @@ generate-mocks: setup ## Generate mocks for interfaces
 
 tests-unit: ## Run unit tests
 	@echo "Running unit tests..."
-	@go test -cover -covermode=count -coverprofile coverage ./internal/...
+	@go clean -testcache
+	@go test -cover -covermode=count ./internal/...
 	@echo "Unit tests completed."
 
 #################################################
