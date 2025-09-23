@@ -45,7 +45,6 @@ $(GOLANGCI_LINT): | $(BIN_DIR)
 $(MOCKERY): | $(BIN_DIR)
 	@test -f $(MOCKERY) || { \
 		echo ">>> Installing mockery..."; \
-		curl -sSfL https://github.com/vektra/mockery/releases/download/v3.5.5/mockery_3.5.5_Linux_arm64.tar.gz \
-		| tar -xz -C $(BIN_DIR); \
+		GOBIN=$(BIN_DIR) go install github.com/vektra/mockery/v3@v3.5.5; \
 	}
 
