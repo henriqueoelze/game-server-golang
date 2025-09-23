@@ -158,7 +158,6 @@ Run make to get the list of all commands and description
 ## Future Improvements
 
 1. **Testing**
-   - Add unit tests
    - Add integration tests
    - Add performance tests
 
