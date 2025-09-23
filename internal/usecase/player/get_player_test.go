@@ -3,7 +3,7 @@ package player_test
 import (
 	"errors"
 	"game-server-golang/internal/domain"
-	mocks "game-server-golang/internal/test/mock"
+	"game-server-golang/internal/test/mocks"
 	"game-server-golang/internal/usecase/player"
 	"testing"
 

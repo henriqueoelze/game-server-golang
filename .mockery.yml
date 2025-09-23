@@ -3,7 +3,7 @@ recursive: false
 force-file-write: true
 formatter: goimports
 template: testify
-dir: "./internal/test/mock"
+dir: "./internal/test/mocks"
 filename: "mocks_{{.SrcPackageName}}.go"
 pkgname: "mocks"
 structname: "Mock{{.InterfaceName}}"
