@@ -43,11 +43,11 @@ func (dal *PlayerRepositoryImpl) CreatePlayer(player entities.Player) error {
 	return nil
 }
 
-func (dal *PlayerRepositoryImpl) GetPlayer(publicId uuid.UUID) (entities.Player, error) {
+func (dal *PlayerRepositoryImpl) GetPlayer(publicId uuid.UUID) (*entities.Player, error) {
 	var playerModel models.Player
 	result := dal.db.First(&playerModel, "public_id = ?", publicId)
 	if result.Error != nil {
-		return entities.Player{}, result.Error
+		return nil, result.Error
 	}
 
 	return playerModel.ToEntity(), nil

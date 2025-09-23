@@ -8,5 +8,5 @@ import (
 
 type PlayerRepository interface {
 	CreatePlayer(player entities.Player) error
-	GetPlayer(publicId uuid.UUID) (entities.Player, error)
+	GetPlayer(publicId uuid.UUID) (*entities.Player, error)
 }

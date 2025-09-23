@@ -34,6 +34,10 @@ generate-mocks: setup ## Generate mocks for interfaces
 	@echo "Generating mocks..."
 	@$(MOCKERY) --config .mockery.yml
 
+tests-unit: ## Run unit tests
+	@echo "Running unit tests..."
+	@go test -cover -covermode=count -coverprofile coverage ./internal/...
+
 #################################################
 # DEPENDENCIES AREA
 #################################################

@@ -15,8 +15,8 @@ type Player struct {
 	Level    int
 }
 
-func (p Player) ToEntity() entities.Player {
-	return entities.Player{
+func (p Player) ToEntity() *entities.Player {
+	return &entities.Player{
 		PublicID: p.PublicId,
 		Name:     p.Name,
 		Level:    p.Level,
