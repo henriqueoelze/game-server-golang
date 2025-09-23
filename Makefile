@@ -19,9 +19,13 @@ help: ## Show this help message
 setup: $(GOLANGCI_LINT) $(MOCKERY) ## Setup the development environment
 	@echo "Setup completed."
 
+check: setup lint tests-unit ## Run all checks (lint, tests, etc)
+	@echo "All checks passed."
+
 db-migrate: ## Runs the database migration
 	@echo "Migrating database"
 	@go run tools/sql_lite_migration.go
+	@echo "Database migration completed."
 
 run: ## Run the server
 	@echo "Running server"
@@ -29,6 +33,7 @@ run: ## Run the server
 
 lint: setup ## Run linters
 	@$(GOLANGCI_LINT) run ./...
+	@echo "Linting passed."
 
 generate-mocks: setup ## Generate mocks for interfaces
 	@echo "Generating mocks..."
@@ -37,6 +42,7 @@ generate-mocks: setup ## Generate mocks for interfaces
 tests-unit: ## Run unit tests
 	@echo "Running unit tests..."
 	@go test -cover -covermode=count -coverprofile coverage ./internal/...
+	@echo "Unit tests completed."
 
 #################################################
 # DEPENDENCIES AREA
